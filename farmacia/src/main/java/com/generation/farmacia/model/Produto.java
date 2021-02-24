@@ -25,11 +25,6 @@ public class Produto {
 	@Size(min = 5, max = 100)
 	public String nomeProduto;
 	
-	
-	@NotNull
-	@Size(min = 10, max = 500)
-	public String descricaoProduto;
-	
 	@NotNull
 	public float precoProduto;
 	
@@ -52,14 +47,6 @@ public class Produto {
 
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
-	}
-
-	public String getDescricaoProduto() {
-		return descricaoProduto;
-	}
-
-	public void setDescricaoProduto(String descricaoProduto) {
-		this.descricaoProduto = descricaoProduto;
 	}
 
 	public double getPrecoProduto() {
