@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.generation.farmacia.model.Categoria;
-import com.generation.farmacia.repository.CategoriaRepository;
+import com.generation.farmacia.model.Produto;
+import com.generation.farmacia.repository.ProdutoRepository;
 
 @RestController
-@RequestMapping("/categoria")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-public class CategoriaController {
+@RequestMapping("/produto")
+@CrossOrigin("*")
+public class ProdutoController {
 	
 	@Autowired
-	private CategoriaRepository repository;
+	private ProdutoRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> getAll() {
+	public ResponseEntity<List<Produto>> getAll() { 
 		return ResponseEntity.ok(repository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> getById(@PathVariable long id) {
+	public ResponseEntity<Produto> getById(@PathVariable long id) {
 		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
 	
-	@GetMapping("/categoria/{nomeCategoria}")
-	public ResponseEntity<List<Categoria>> getByName (@PathVariable String nomeCategoria) {
-		return ResponseEntity.ok(repository.findAllByNomeCategoriaContainingIgnoreCase(nomeCategoria));
+	@GetMapping("/produto/{nomeProduto}")
+	public ResponseEntity<List<Produto>> getByName (@PathVariable String nomeProduto) {
+		return ResponseEntity.ok(repository.findAllByNomeProdutoContainingIgnoreCase(nomeProduto));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> post (@RequestBody Categoria categoria) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
+	public ResponseEntity<Produto> post (@RequestBody Produto produto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
 	}
-	
+		
 	@PutMapping
-	public ResponseEntity<Categoria> put (@RequestBody Categoria categoria) {
-		return ResponseEntity.ok(repository.save(categoria));
+	public ResponseEntity<Produto> put (@RequestBody Produto produto) {
+		return ResponseEntity.ok(repository.save(produto));
 	}
-	
+		
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		repository.deleteById(id);
-	}	
+	}		
 
 }
